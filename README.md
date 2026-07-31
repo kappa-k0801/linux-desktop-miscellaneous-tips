@@ -8,7 +8,7 @@
 
 ## Safe sudo
 - If it is not a system command, a virus scan is performed first before executing the command.
-- safesudo
+- $HOME/.local/bin/safesudo
 ```
 #!/bin/sh
 
