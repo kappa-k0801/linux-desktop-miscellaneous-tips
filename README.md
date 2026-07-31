@@ -16,33 +16,14 @@
 
 if [[ $(whereis $1 | awk '{print $2}' | grep '/usr/bin' | wc -l) != "1" ]]
 then
-        clamscan $1
-        [[ $? == "1" ]] && exit 1
+        clamscan --no-summary $1
+        if [[ $? == "1" ]]
+        then
+                exit 1
+        else
+                echo ""
+        fi
 fi
 
-echo ""
-echo "---------------------------------------"
-echo ""
-
 /usr/bin/sudo $@
-```
-- sample
-```
-$ safesudo ./eicar.txt 
-Loading:     5s, ETA:   0s [========================>]    3.63M/3.63M sigs       
-Compiling:   2s, ETA:   0s [========================>]       41/41 tasks 
-
-./eicar.txt: Eicar-Signature FOUND
-
------------ SCAN SUMMARY -----------
-Known viruses: 3627983
-Engine version: 1.4.5
-Scanned directories: 0
-Scanned files: 1
-Infected files: 1
-Data scanned: 0.00 MB
-Data read: 0.00 MB (ratio 0.00:1)
-Time: 7.248 sec (0 m 7 s)
-Start Date: 2026:08:01 07:52:36
-End Date:   2026:08:01 07:52:43
 ```
