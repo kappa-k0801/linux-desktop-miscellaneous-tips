@@ -12,7 +12,7 @@
 ```
 #!/bin/sh
 
-[[ z$1 == "z" ]] && sudo --help && exit 0
+[[ z$1 == "z" ]] || [[ $1 == "--help" ]] && /usr/bin/sudo --help && exit 0
 
 if [[ $(whereis $1 | awk '{print $2}' | grep '/usr/bin' | wc -l) != "1" ]]
 then
@@ -25,5 +25,5 @@ then
         fi
 fi
 
-/usr/bin/sudo $@
+/usr/bin/sudo "$@"
 ```
