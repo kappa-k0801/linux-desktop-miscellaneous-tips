@@ -27,3 +27,30 @@ fi
 
 /usr/bin/sudo "$@"
 ```
+
+## Configuring automatic updates to default kernel boot settings in a systemd-boot environment
+- Add script : /usr/lib/kernel/install.d/99-bootctl-update.install
+```
+#!/bin/sh
+
+COMMAND="$1"
+KERNEL_VERSION="$2"
+
+MACHINE_ID=`cat /etc/machine-id`
+
+case "$COMMAND" in
+    add)
+        bootctl set-default ${MACHINE_ID}-${KERNEL_VERSION}.conf
+        echo "Now default kernel version is ${MACHINE_ID}-${KERNEL_VERSION}.conf"
+    ;;
+    remove)
+	CURRENT_KERNEL_VERSION=`uname -r`
+        bootctl set-default "${MACHINE_ID}-${CURRENT_KERNEL_VERSION}.conf"
+        echo "Now default kernel version is ${MACHINE_ID}-${CURRENT_KERNEL_VERSION}.conf"
+    ;;
+esac
+
+exit 0
+```
+-> Installed: Set New Kernel
+-> remove: Set Current Kernel
