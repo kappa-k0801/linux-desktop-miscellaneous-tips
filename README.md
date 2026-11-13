@@ -52,5 +52,4 @@ esac
 
 exit 0
 ```
--> Installed: Set New Kernel
--> remove: Set Current Kernel
+-> Installed: Set New Kernel / -> remove: Set Current Kernel
